@@ -30,7 +30,7 @@ public class PlatformSpawner : MonoBehaviour
         for (int i = 0; i < _platCount; i++)
         {
             newSpawnPoint.x = Random.Range(-7f, 7f);
-            newSpawnPoint.y += 2;
+            newSpawnPoint.y += 1.5f;
             _platList.Add(Instantiate(_platformPrefab, newSpawnPoint, Quaternion.identity));
         }
         return newSpawnPoint;
