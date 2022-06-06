@@ -7,7 +7,7 @@ public class PlatformSpawner : MonoBehaviour
     [SerializeField] GameObject _platformPrefab;
     [SerializeField] GameObject _spanPoint;
     [SerializeField] int _platCount;
-    List<GameObject> _platList;
+    List<GameObject> _platList = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
