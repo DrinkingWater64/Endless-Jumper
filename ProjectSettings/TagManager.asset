@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Frame
   - platform
+  - border
   layers:
   - Default
   - TransparentFX
@@ -13,8 +14,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - border
+  - platform
   - 
   - 
   - 

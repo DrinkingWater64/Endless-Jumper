@@ -6,6 +6,7 @@ public class Frame : MonoBehaviour
 {
     [SerializeField] PlatformSpawner _spawner;
     [SerializeField] int _platLeft = 0;
+    public float speed = 2;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,8 @@ public class Frame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        speed = speed + Time.deltaTime*.125f;
         _spawner.KeepSpawning();
+
     }
 }

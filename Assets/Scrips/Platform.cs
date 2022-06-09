@@ -5,8 +5,13 @@ using System;
 
 public class Platform : MonoBehaviour
 {
-    
-    float _speed = 2f;
+
+
+    GameObject frame;
+    private void Awake()
+    {
+        frame = GameObject.FindGameObjectWithTag("Frame");
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +29,6 @@ public class Platform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector2.down * _speed * Time.deltaTime);
+        transform.Translate(Vector2.down * frame.GetComponent<Frame>().speed * Time.deltaTime);
     }
 }
