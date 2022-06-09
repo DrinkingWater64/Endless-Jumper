@@ -35,7 +35,7 @@ public class PlatformSpawner : MonoBehaviour
         }
         else
         {
-            return 1;
+            return 2;
         }
     }
 
@@ -54,13 +54,14 @@ public class PlatformSpawner : MonoBehaviour
         }
         else if (_counter>=2)
         {
-            Debug.Log("_counter >= 2");
             int newX = _alterNumber[x];
-            if (x==5)
+            if (newX==5)
             {
+                Debug.Log(" x == 5");
                 newX = ZeroOrTwo();
             }
             _prevNumber = newX;
+            Debug.Log(newX);
             _counter = 0;
             newPosition = _spawnPoints[newX].transform.position;
         }
@@ -82,6 +83,9 @@ public class PlatformSpawner : MonoBehaviour
 
             }
         }
+
+        newPosition.x = newPosition.x - Random.Range(-2f, 2f);
+
         Debug.Log("prevous: " + _prevNumber);
         Debug.Log("counter: " + _counter);
         return newPosition;
