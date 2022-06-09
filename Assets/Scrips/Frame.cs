@@ -9,21 +9,19 @@ public class Frame : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _spawner.CreateSpawnPoint();
+        _spawner.SpawnInitialPlatform();
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log("DEAD!!!!!!!");
         if (collision.CompareTag("platform"))
         {
             _platLeft += 1;
-            Debug.Log(_platLeft);
         }
     }
     // Update is called once per frame
     void Update()
     {
-        
+        _spawner.KeepSpawning();
     }
 }

@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Platform : MonoBehaviour
 {
+    
     float _speed = 2f;
     // Start is called before the first frame update
     void Start()
