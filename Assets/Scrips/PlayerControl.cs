@@ -12,6 +12,9 @@ public class PlayerControl : MonoBehaviour
     float _force;
 
     [SerializeField]
+    GameObject groundChecker;
+
+    [SerializeField]
     Animator planimator;
     bool canJump = false;
 
@@ -29,12 +32,12 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
         float horizontalT = Input.GetAxis("Horizontal");
-        if (horizontalT >0)
+        if (horizontalT > 0)
         {
             planimator.SetBool("StartRun", true);
             playerSprite.flipX = true;
         }
-        else if(horizontalT<0)
+        else if (horizontalT < 0)
         {
             planimator.SetBool("StartRun", true);
             playerSprite.flipX = false;
@@ -50,12 +53,19 @@ public class PlayerControl : MonoBehaviour
         //transform.Translate(horizontalT, 0, 0);
         Walk(dir);
 
+
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Jump(dir);
+            if (groundChecker.GetComponent<GroundCheck>().isGrounded == true)
+            {
+                Jump(dir);
+                planimator.SetBool("StartJump", false);
+            }
         }
 
-        if (rb.velocity.y<0)
+
+        if (rb.velocity.y < 0)
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         }
@@ -64,23 +74,19 @@ public class PlayerControl : MonoBehaviour
             rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
 
+
+
     }
 
     void Jump(Vector2 dir)
     {
-        Debug.Log("jump");
-        if (canJump == true)
-        {
-            planimator.SetBool("StartJump", true);
         rb.velocity = new Vector2(dir.x, 0);
         rb.velocity += Vector2.up * _force;
-        canJump = false;
-        }
     }
 
-    void Walk( Vector2 dir)
+    void Walk(Vector2 dir)
     {
-        rb.velocity = new Vector2(dir.x * _speed , rb.velocity.y);
+        rb.velocity = new Vector2(dir.x * _speed, rb.velocity.y);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -93,7 +99,7 @@ public class PlayerControl : MonoBehaviour
         {
             if (canJump == false)
             {
-                Debug.Log(canJump+" alterd anim");
+                Debug.Log(canJump + " alterd anim");
                 planimator.SetBool("StartJump", false);
             }
             canJump = true;

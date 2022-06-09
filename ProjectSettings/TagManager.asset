@@ -8,6 +8,7 @@ TagManager:
   - platform
   - border
   - GameOver
+  - groundcheck
   layers:
   - Default
   - TransparentFX
