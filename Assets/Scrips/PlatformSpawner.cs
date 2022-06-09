@@ -105,7 +105,7 @@ public class PlatformSpawner : MonoBehaviour
 
     public void KeepSpawning()
     {
-        if ((_spawnPoints[1].transform.position.y - currentPlat.transform.position.y)  >= 2.5f)
+        if ((_spawnPoints[1].transform.position.y - currentPlat.transform.position.y)  >= 3.5f)
         {
             Vector2 newPos = CreateSpawnPosition();
             SpawnPlatform( newPos);

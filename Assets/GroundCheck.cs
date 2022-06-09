@@ -23,6 +23,7 @@ public class GroundCheck : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("platform"))
         {
+            // StopCoroutine(SetFalse());
             isGrounded = true;
             anim.SetBool("StartJump", false);
         }
@@ -56,7 +57,7 @@ public class GroundCheck : MonoBehaviour
         }
         else if (isGrounded == true)
         {
-            yield return new WaitForSeconds(.3f);
+            yield return new WaitForSeconds(.2f);
             isGrounded = false;
         }
 
