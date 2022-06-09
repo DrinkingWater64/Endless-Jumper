@@ -4,24 +4,46 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
+    [SerializeField] SpriteRenderer playerSprite;
     [SerializeField] float _speed = .5f;
     [SerializeField]
     Rigidbody2D rb;
     [SerializeField]
     float _force;
 
-    float fallMultiplier = 3.5f;
+    [SerializeField]
+    Animator planimator;
+    bool canJump = false;
+
+
+    float fallMultiplier = 4f;
     float lowJumpMultiplier = 2f;
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        canJump = false;
     }
 
     // Update is called once per frame
     void Update()
     {
         float horizontalT = Input.GetAxis("Horizontal");
+        if (horizontalT >0)
+        {
+            planimator.SetBool("StartRun", true);
+            playerSprite.flipX = true;
+        }
+        else if(horizontalT<0)
+        {
+            planimator.SetBool("StartRun", true);
+            playerSprite.flipX = false;
+        }
+        else if (horizontalT == 0)
+        {
+            planimator.SetBool("StartRun", false);
+        }
+
         float verticalT = Input.GetAxis("Vertical");
         Vector2 dir = new Vector2(horizontalT, verticalT);
 
@@ -47,8 +69,13 @@ public class PlayerControl : MonoBehaviour
     void Jump(Vector2 dir)
     {
         Debug.Log("jump");
+        if (canJump == true)
+        {
+            planimator.SetBool("StartJump", true);
         rb.velocity = new Vector2(dir.x, 0);
         rb.velocity += Vector2.up * _force;
+        canJump = false;
+        }
     }
 
     void Walk( Vector2 dir)
@@ -56,7 +83,22 @@ public class PlayerControl : MonoBehaviour
         rb.velocity = new Vector2(dir.x * _speed , rb.velocity.y);
     }
 
-    private void FixedUpdate()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("GameOver"))
+        {
+            GameState.instance.GameOver();
+        }
+        if (collision.gameObject.CompareTag("platform"))
+        {
+            if (canJump == false)
+            {
+                Debug.Log(canJump+" alterd anim");
+                planimator.SetBool("StartJump", false);
+            }
+            canJump = true;
+        }
     }
+
+
 }
